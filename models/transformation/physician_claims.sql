@@ -1,3 +1,7 @@
+{{
+    config( materialized='ephemeral' )
+}}
+
 select
     cast(h.cur_clm_uniq_id as varchar) as claim_id
     ,cast(h.clm_line_num as int) as claim_line_number
@@ -28,7 +32,7 @@ select
     ,cast(NULL as date) as paid_date
     ,cast(clm_line_cvrd_pd_amt as float) as paid_amount
     ,cast(clm_line_alowd_chrg_amt as float) as charge_amount
-    ,cast(isnull(clm_adjsmt_type_cd, 'O') as varchar) as adjustment_type_code
+    ,cast(ifnull(clm_adjsmt_type_cd, 'O') as varchar) as adjustment_type_code
     ,cast(h.clm_dgns_1_cd as varchar) as diagnosis_code_1
     ,cast(h.clm_dgns_2_cd as varchar) as diagnosis_code_2
     ,cast(h.clm_dgns_3_cd as varchar) as diagnosis_code_3
